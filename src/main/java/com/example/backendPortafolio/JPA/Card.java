@@ -36,6 +36,13 @@ public class Card  {
     @JoinColumn(name = "tipo_card")
     private TipoCard tipoCard;
 
+    public void updateCard(Card c2){
+        titulo=c2.titulo;
+        descripcion=c2.descripcion;
+        imageSource=c2.imageSource;
+        userCreator=c2.userCreator;
+        tipoCard=c2.tipoCard;
+    }
 
 
 }

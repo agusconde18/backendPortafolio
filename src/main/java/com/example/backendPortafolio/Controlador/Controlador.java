@@ -61,6 +61,37 @@ public class Controlador {
     }
 
 
+    @PutMapping("card")
+    String updateCard(
+            @RequestParam Long id,
+            @RequestParam String titulo,
+            @RequestParam String descripcion,
+            @RequestParam  String imgSrc,
+            @RequestParam  Long  usrId,
+            @RequestParam (defaultValue = "") String catNueva,
+            @RequestParam String token){
+        if(checkTok.checkUser(usrId,token)) {
+            TipoCard tc=tipoCard.findByDescripcion(catNueva);
+            if(tc==null){
+                tc =new TipoCard(null,catNueva);
+                tipoCard.save(tc);
+                tc= tipoCard.findByDescripcion(catNueva);
+            }
+            Card card=tarjetas.getById(id);
+            card.updateCard(new Card(
+                    id,
+                    titulo,
+                    descripcion,
+                    imgSrc,
+                    usuarios.getById(usrId),
+                    tc
+            ));
+            tarjetas.save(card);
+            return "OK" ;
+        }
+        return "ERR";
+    }
+
     @DeleteMapping("card")
     String deleteCard(
             @RequestParam Long cardId,
