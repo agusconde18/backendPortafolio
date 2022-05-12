@@ -17,7 +17,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "users")
-@JsonIgnoreProperties({"cards"})
+@JsonIgnoreProperties({"cards","password"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
